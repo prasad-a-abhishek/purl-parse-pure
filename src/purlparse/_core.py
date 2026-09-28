@@ -30,23 +30,31 @@ def parse(purl: str) -> ParseResult:
         A ParseResult with all parsed components.
 
     Raises:
-        ValueError: If the string does not conform to the purl grammar.
+        PurlError: If the string does not conform to the purl grammar,
+            or if ``purl`` is not a ``str`` instance.
     """
+    # Invariant 21: total over arbitrary input. Non-str values (bytes, int,
+    # float, bool, None) must raise the documented ``PurlError`` instead of a
+    # raw ``TypeError`` from the subsequent ``for ch in purl`` iteration.
+    if not isinstance(purl, str):
+        raise PurlError(
+            f"purl must be a str, got {type(purl).__name__}: {purl!r}"
+        )
     if not purl:
-        raise ValueError("purl cannot be empty")
+        raise PurlError("purl cannot be empty")
 
     # Reject control characters (newline, null byte, tab, etc.)
     for i, ch in enumerate(purl):
         if ch in "\n\r\t\x00":
-            raise ValueError(f"purl contains invalid character at position {i}: {purl!r}")
+            raise PurlError(f"purl contains invalid character at position {i}: {purl!r}")
 
     # Step 1: Verify prefix "pkg:"
     if not purl.startswith("pkg:"):
-        raise ValueError(f"purl must start with 'pkg:': {purl!r}")
+        raise PurlError(f"purl must start with 'pkg:': {purl!r}")
 
     rest = purl[4:]  # everything after "pkg:"
     if not rest:
-        raise ValueError(f"purl missing type after 'pkg:': {purl!r}")
+        raise PurlError(f"purl missing type after 'pkg:': {purl!r}")
 
     # Step 2: Split off qualifiers (?...) and subpath (#...)
     qualifiers: dict[str, str] = {}
@@ -74,12 +82,12 @@ def parse(purl: str) -> ParseResult:
     # Step 3: Parse qualifiers
     if qualifiers_raw is not None:
         if "?" in qualifiers_raw:
-            raise ValueError(f"purl has multiple '?' delimiters: {purl!r}")
+            raise PurlError(f"purl has multiple '?' delimiters: {purl!r}")
         # AC14: '#' in qualifier value should stop at '#' delimiter
         hash_in_qual = qualifiers_raw.find("#")
         if hash_in_qual != -1:
             if subpath_raw is not None:
-                raise ValueError(f"purl has multiple '#' delimiters: {purl!r}")
+                raise PurlError(f"purl has multiple '#' delimiters: {purl!r}")
             subpath_raw = qualifiers_raw[hash_in_qual + 1:]
             qualifiers_raw = qualifiers_raw[:hash_in_qual]
         for pair in qualifiers_raw.split("&"):
@@ -101,15 +109,15 @@ def parse(purl: str) -> ParseResult:
     # Step 5: Extract type — find first '/' after pkg:
     slash_idx = rest.find("/")
     if slash_idx == -1:
-        raise ValueError(f"purl missing '/' after type: {purl!r}")
+        raise PurlError(f"purl missing '/' after type: {purl!r}")
 
     type_part = rest[:slash_idx]
     after_type = rest[slash_idx + 1:]
 
     if not type_part:
-        raise ValueError(f"purl type cannot be empty: {purl!r}")
+        raise PurlError(f"purl type cannot be empty: {purl!r}")
     if not after_type:
-        raise ValueError(f"purl missing name after type: {purl!r}")
+        raise PurlError(f"purl missing name after type: {purl!r}")
 
     type_str = type_part.lower()
     # Normalize 'github.com' shorthand type to 'github' (AC10)
@@ -156,7 +164,7 @@ def parse(purl: str) -> ParseResult:
         # namespace = groupId (org.apache.commons), name = artifactId
         slash_count = name_part.count("/")
         if slash_count == 0:
-            raise ValueError(f"purl maven requires namespace/name: {purl!r}")
+            raise PurlError(f"purl maven requires namespace/name: {purl!r}")
         elif slash_count == 1:
             ns_part, name = name_part.split("/", 1)
             namespace = ns_part
@@ -180,10 +188,10 @@ def parse(purl: str) -> ParseResult:
         name = name_part
 
     if not name:
-        raise ValueError(f"purl name cannot be empty: {purl!r}")
+        raise PurlError(f"purl name cannot be empty: {purl!r}")
     # Reject duplicate '@' (e.g., lodash@@4.17.21)
     if "@" in name:
-        raise ValueError(f"purl has multiple '@' delimiters: {purl!r}")
+        raise PurlError(f"purl has multiple '@' delimiters: {purl!r}")
 
     # Step 8: URL-decode version
     version: str | None = None
