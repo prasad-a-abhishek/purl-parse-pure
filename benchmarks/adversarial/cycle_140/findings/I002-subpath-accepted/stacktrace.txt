@@ -1,0 +1,12 @@
+=== I002 reproduction (subpath .. and ; segments accepted) ===
+Input: pkg:npm/x#..
+Parsed subpath: '..'
+
+Additional cases:
+  'pkg:npm/foo#../../../etc/passwd'                  -> subpath='../../../etc/passwd'
+  'pkg:npm/foo#a;b;../../etc/passwd'                 -> subpath='a;b;../../etc/passwd'
+  'pkg:npm/foo#'                                     -> subpath=''
+  'pkg:npm/foo#normal/path'                          -> subpath='normal/path'
+
+Parser is data-only: subpath may contain .., ;, and arbitrary segments
+A consumer that interprets subpath for filesystem I/O must sanitize itself

@@ -1,0 +1,21 @@
+{
+  "id": "F-I003",
+  "audit_id": "I003",
+  "surface": "_types_registry",
+  "severity": "info",
+  "status": "n/a",
+  "class": "TYPE_REGISTRY: name_sep defined for maven but never consumed",
+  "repro_path": "findings/I003-name-sep-unused/repro_min.bin",
+  "repro_bytes": "6d6176656e",
+  "repro_decoded": "maven (the only entry with non-None name_sep)",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "n/a (data model observation)",
+  "root_cause_file": "src/purlparse/_types.py",
+  "root_cause_lines": "17 (definition); _core.py:151 (only reference is default-dict construction)",
+  "remediation_hint": "Remove name_sep or document as reserved-for-future-use",
+  "estimated_fix_loc": 0,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928"
+}

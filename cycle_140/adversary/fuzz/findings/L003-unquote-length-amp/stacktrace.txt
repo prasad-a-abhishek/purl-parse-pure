@@ -1,0 +1,8 @@
+=== L003 reproduction (unquote() length amplification: linear factor-1) ===
+Input chars: 13 name chars: 3 name[:20]: xay
+
+Larger stress test (1M %41 sequences):
+  input bytes: 1500008 name chars: 500000 name[:10]: aaaaaaaaaa
+
+Linear memory amplification (factor 1, not exponential).
+OS ARG_MAX (~128KB) limits CLI DoS; programmatic callers may not have this guard.

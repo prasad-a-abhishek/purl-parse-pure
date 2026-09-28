@@ -1,0 +1,10 @@
+=== M004 reproduction (no Unicode normalization) ===
+Input (NFC): 'pkg:npm/xé'
+Input bytes (hex): 706b673a6e706d2f78c3a9
+Parsed name: 'xé'
+Parsed name bytes (hex): 78c3a9
+
+NFC vs NFD comparison:
+  NFC r1.name: 'café'
+  NFD r2.name: 'café'
+  equal: False (FALSE despite identical visual representation)

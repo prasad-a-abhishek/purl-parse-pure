@@ -1,0 +1,21 @@
+{
+  "id": "F-M004",
+  "audit_id": "M004",
+  "surface": "core_parse",
+  "severity": "medium",
+  "status": "OPEN",
+  "class": "A7 — no Unicode normalization (NFC != NFD)",
+  "repro_path": "findings/M004-no-unicode-normalization/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f78c3a9",
+  "repro_decoded": "pkg:npm/x\u00e9 (NFC: U+00E9)",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "0 oracle-mismatches (Atheris single-parse; bug is cross-parse)",
+  "root_cause_file": "src/purlparse/_core.py + _types.py",
+  "root_cause_lines": "_core.py:194 (unquote only); _types.py:55-60 (post_init does not normalize)",
+  "remediation_hint": "Apply unicodedata.normalize('NFKC', ...) in ParseResult.__post_init__ for name/namespace/version/qual_keys/qual_values",
+  "estimated_fix_loc": 6,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928"
+}

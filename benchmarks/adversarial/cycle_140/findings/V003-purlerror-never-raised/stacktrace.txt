@@ -1,0 +1,21 @@
+=== V003 reproduction (minimized input: 'raise PurlError' — searched as substring of source) ===
+
+Source-level evidence:
+  PurlError references in _core.py: 1
+  ValueError raises in _core.py: 12
+  PurlError raises in _core.py: 0
+
+  Sample raises (first 5):
+     raise ValueError("purl cannot be empty")
+     raise ValueError(f"purl contains invalid character at position {i}: {purl!r}")
+     raise ValueError(f"purl must start with 'pkg:': {purl!r}")
+     raise ValueError(f"purl missing type after 'pkg:': {purl!r}")
+     raise ValueError(f"purl has multiple '?' delimiters: {purl!r}")
+
+Behavioral test (except PurlError catches nothing on invalid input):
+  parse('') raised ValueError, NOT PurlError: purl cannot be empty
+  parse('not-a-purl') raised ValueError, NOT PurlError: purl must start with 'pkg:': 'not-a-purl'
+  parse('pkg:npm') raised ValueError, NOT PurlError: purl missing '/' after type: 'pkg:npm'
+  parse('pkg:///') raised ValueError, NOT PurlError: purl type cannot be empty: 'pkg:///'
+
+  >> BUG CONFIRMED: NO input triggered PurlError. except PurlError is dead code.

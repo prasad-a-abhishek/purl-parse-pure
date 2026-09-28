@@ -1,0 +1,12 @@
+=== I003 reproduction (name_sep defined but never consumed) ===
+TYPE_REGISTRY entries with name_sep defined:
+  maven: name_sep='/'
+
+  references to "name_sep" in _core.py: 1
+  (the single reference is at line 151 in a default-dict constructor:
+    registry_entry = TYPE_REGISTRY.get(type_str, {"namespace_sep": "/", "name_sep": None})
+   This is a fallback default for unknown types, NOT a read of the maven
+   name_sep value '/'. The maven entry's name_sep is never read.)
+
+maven has name_sep defined ('/') but core.py never actually uses the value.
+Dead field - could mislead future maintainers about multi-segment name support.

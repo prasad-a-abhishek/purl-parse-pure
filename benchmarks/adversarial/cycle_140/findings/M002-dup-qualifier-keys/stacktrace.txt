@@ -1,0 +1,11 @@
+=== M002 reproduction (duplicate qualifier keys: silent last-write-wins) ===
+Input: pkg:npm/x?a=1&a=2
+Parsed qualifiers: {'a': '2'}
+
+Order dependence check:
+  'pkg:npm/foo?a=1&a=2'               -> {'a': '2'}
+  'pkg:npm/foo?a=2&a=1'               -> {'a': '1'}
+  'pkg:npm/foo?a&a=2'                 -> {'a': '2'}
+
+No error raised; the last value silently overwrites prior ones
+ECMA-424 says duplicate keys are an error; spec-compliance gap

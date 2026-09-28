@@ -1,0 +1,6 @@
+=== L001 reproduction (error messages echo full purl!r) ===
+Input: x
+Error message: "purl must start with 'pkg:': 'x'"
+
+The full input string is echoed via {purl!r} in the error format
+Info leak risk: low — caller already knows the input

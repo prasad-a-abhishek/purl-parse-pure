@@ -1,0 +1,21 @@
+{
+  "id": "F-L003",
+  "audit_id": "L003",
+  "surface": "core_parse",
+  "severity": "low",
+  "status": "OPEN",
+  "class": "A4 — unquote() linear amplification (factor 1, not exponential)",
+  "repro_path": "findings/L003-unquote-length-amp/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f7825 343179",
+  "repro_decoded": "pkg:npm/x%41y (1 percent-encoded 'A')",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 134217728,
+  "atheris_result": "0 crashes (linear amplification, not exponential)",
+  "root_cause_file": "src/purlparse/_core.py",
+  "root_cause_lines": "90, 94, 99, 191, 194, 195 (unquote calls; no length cap)",
+  "remediation_hint": "Optional: add max-input-length guard at parse() entry",
+  "estimated_fix_loc": 3,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928"
+}

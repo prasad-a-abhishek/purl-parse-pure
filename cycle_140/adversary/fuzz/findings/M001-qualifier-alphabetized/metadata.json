@@ -1,0 +1,21 @@
+{
+  "id": "F-M001",
+  "audit_id": "M001",
+  "surface": "core_parse+to_string",
+  "severity": "medium",
+  "status": "OPEN",
+  "class": "A16 — to_string() alphabetizes qualifiers (spec-correct, undocumented)",
+  "repro_path": "findings/M001-qualifier-alphabetized/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f7840613f623d3126613d31",
+  "repro_decoded": "pkg:npm/x@a?b=1&a=1",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "0 oracle-mismatches (canonical-form sort is consistent)",
+  "root_cause_file": "src/purlparse/_types.py",
+  "root_cause_lines": "104 (sorted() in to_string)",
+  "remediation_hint": "Add comment documenting ECMA-424 §4.5 mandate; no logic change",
+  "estimated_fix_loc": 2,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928"
+}

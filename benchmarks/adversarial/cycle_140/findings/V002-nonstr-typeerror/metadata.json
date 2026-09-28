@@ -1,0 +1,22 @@
+{
+  "id": "F-V002",
+  "audit_id": "V002",
+  "surface": "core_parse",
+  "severity": "high",
+  "status": "OPEN",
+  "class": "A6+A14 — non-string input raises raw TypeError/AttributeError",
+  "repro_path": "findings/V002-nonstr-typeerror/repro_min.bin",
+  "repro_bytes": "78",
+  "repro_decoded": "x (1 byte; passed as bytes object to parse())",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 134217728,
+  "atheris_result": "0 crashes (Atheris ConsumeUnicodeNoSurrogates is str-only; bug class invisible to string fuzzers)",
+  "root_cause_file": "src/purlparse/_core.py",
+  "root_cause_lines": "23-41 (no isinstance guard before iteration)",
+  "remediation_hint": "Add isinstance(purl, str) guard at parse() entry; raise PurlError if not",
+  "estimated_fix_loc": 4,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928",
+  "compounded_by": "V003 (PurlError never raised — same patch can close both)"
+}

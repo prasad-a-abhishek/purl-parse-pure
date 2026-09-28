@@ -1,0 +1,8 @@
+=== M001 reproduction (to_string() alphabetizes qualifiers) ===
+Input: pkg:npm/x@a?b=1&a=1
+Parsed qualifiers (insertion order): {'b': '1', 'a': '1'}
+to_string() output: pkg:npm/x@a?a=1&b=1
+
+Original input had b=1 then a=1; to_string() emits a=1 then b=1 (alphabetical)
+Spec: ECMA-424 sec 4.5 mandates canonical alphabetical ordering -- correct behavior, observation only
+Test suite asserts this order at tests/test_core.py -- refactor risk if sort is removed

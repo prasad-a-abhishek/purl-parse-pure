@@ -1,0 +1,21 @@
+{
+  "id": "F-V001",
+  "audit_id": "V001",
+  "surface": "core_parse",
+  "severity": "high",
+  "status": "OPEN",
+  "class": "A2+A8 — percent-encoded control chars bypass gate",
+  "repro_path": "findings/V001-pct-ctrl-chars/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f7825303079",
+  "repro_decoded": "pkg:npm/x%00y",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 134217728,
+  "atheris_result": "0 crashes (silent bypass; no signal)",
+  "root_cause_file": "src/purlparse/_core.py",
+  "root_cause_lines": "35-41 (gate runs before unquote)",
+  "remediation_hint": "Move control-char check after unquote() OR scan for %[0-9A-Fa-f]{2} sequences that decode to control bytes",
+  "estimated_fix_loc": 10,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "F-V003",
+  "audit_id": "V003",
+  "surface": "core_parse",
+  "severity": "high",
+  "status": "OPEN",
+  "class": "A5 — public API contract drift (PurlError exported but never raised)",
+  "repro_path": "findings/V003-purlerror-never-raised/repro_min.bin",
+  "repro_bytes": "7261697365205075726c4572726f72",
+  "repro_decoded": "'raise PurlError' (searched as substring of _core.py source; 0 matches found)",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "0 crashes (logic bug, not runtime crash; Atheris can't see except-mismatch)",
+  "root_cause_file": "src/purlparse/_core.py + __init__.py",
+  "root_cause_lines": "_core.py:19 (import only); raise ValueError x 12 sites; __init__.py:11 (exported in __all__)",
+  "remediation_hint": "Replace 12 raise ValueError with raise PurlError in _core.py (12-token change) + update docstring",
+  "estimated_fix_loc": 13,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928",
+  "compounded_with": "V002 (same patch closes both)"
+}

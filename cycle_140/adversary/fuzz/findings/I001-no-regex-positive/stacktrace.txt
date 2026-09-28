@@ -1,0 +1,6 @@
+=== I001 reproduction (no regex use anywhere) ===
+  purlparse._core: 0 regex calls
+  purlparse._types: 0 regex calls
+  purlparse._errors: 0 regex calls
+
+CONFIRMED: Zero regex use. A1 (ReDoS) is structurally impossible.

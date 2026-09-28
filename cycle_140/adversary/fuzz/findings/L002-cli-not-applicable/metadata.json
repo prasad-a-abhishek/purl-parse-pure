@@ -1,0 +1,22 @@
+{
+  "id": "F-L002",
+  "audit_id": "L002",
+  "surface": "cli (withdrawn — does not apply)",
+  "severity": "low",
+  "status": "WITHDRAWN",
+  "class": "A6 — CLI catches ValueError but not TypeError (does not apply; argv is always str)",
+  "repro_path": "findings/L002-cli-not-applicable/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f78",
+  "repro_decoded": "pkg:npm/x",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "N/A (CLI surface)",
+  "root_cause_file": "src/purlparse/__main__.py",
+  "root_cause_lines": "39, 54, 69 (except ValueError)",
+  "remediation_hint": "None required — finding withdrawn; library-surface risk covered by V002",
+  "estimated_fix_loc": 0,
+  "blocks_ship": false,
+  "withdrawn_reason": "sys.argv is always list[str] at OS level; CLI argv type-safety verified via subprocess.run",
+  "parent_card": "t_1943d928"
+}

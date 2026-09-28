@@ -1,0 +1,21 @@
+{
+  "id": "F-M003",
+  "audit_id": "M003",
+  "surface": "core_parse",
+  "severity": "medium",
+  "status": "OPEN",
+  "class": "A11 — empty qualifier key silently accepted",
+  "repro_path": "findings/M003-empty-qualifier-key/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f783f3d31",
+  "repro_decoded": "pkg:npm/x?=1",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "0 oracle-mismatches",
+  "root_cause_file": "src/purlparse/_core.py",
+  "root_cause_lines": "91, 95 (no length check on k)",
+  "remediation_hint": "Raise PurlError if k is empty after unquote",
+  "estimated_fix_loc": 3,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928"
+}

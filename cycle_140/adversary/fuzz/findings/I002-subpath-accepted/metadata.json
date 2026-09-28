@@ -1,0 +1,21 @@
+{
+  "id": "F-I002",
+  "audit_id": "I002",
+  "surface": "core_parse",
+  "severity": "info",
+  "status": "n/a",
+  "class": "A9 — subpath .. and ; segments accepted (parser is data-only)",
+  "repro_path": "findings/I002-subpath-accepted/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f7823 2e2e",
+  "repro_decoded": "pkg:npm/x#..",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "0 oracle-mismatches (data-only by design)",
+  "root_cause_file": "src/purlparse/_core.py",
+  "root_cause_lines": "99, 170-186 (subpath parser retains .. and ; verbatim)",
+  "remediation_hint": "Document consumer responsibility in README",
+  "estimated_fix_loc": 0,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928"
+}

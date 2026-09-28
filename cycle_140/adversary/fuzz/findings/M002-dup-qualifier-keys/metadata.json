@@ -1,0 +1,22 @@
+{
+  "id": "F-M002",
+  "audit_id": "M002",
+  "surface": "core_parse",
+  "severity": "medium",
+  "status": "OPEN",
+  "class": "A10 — duplicate qualifier keys: silent last-write-wins",
+  "repro_path": "findings/M002-dup-qualifier-keys/repro_min.bin",
+  "repro_bytes": "706b673a6e706d2f783f613d3126613d32",
+  "repro_decoded": "pkg:npm/x?a=1&a=2",
+  "atheris_discovered": false,
+  "discovered_by": "manual_audit_T1",
+  "atheris_iterations": 570425344,
+  "atheris_result": "0 oracle-mismatches (Atheris random strings rarely hit duplicate-key pattern)",
+  "root_cause_file": "src/purlparse/_core.py",
+  "root_cause_lines": "91, 95 (qualifiers[k] = ... without duplicate check)",
+  "remediation_hint": "Raise PurlError on duplicate qualifier key (per ECMA-424)",
+  "estimated_fix_loc": 5,
+  "blocks_ship": false,
+  "parent_card": "t_1943d928",
+  "compounded_with": "V003 (PurlError never raised; same patch closes both)"
+}

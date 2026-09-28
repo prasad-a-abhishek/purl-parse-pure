@@ -1,0 +1,11 @@
+=== M003 reproduction (empty qualifier key accepted) ===
+Input: pkg:npm/x?=1
+Parsed qualifiers: {'': '1'}
+
+Matrix:
+  'pkg:npm/foo?a='               -> {'a': ''}
+  'pkg:npm/foo?a&b=1'            -> {'a': '', 'b': '1'}
+  'pkg:npm/foo?=v'               -> {'': 'v'}
+  'pkg:npm/foo?=&'               -> {'': ''}
+
+ECMA-424 grammar: qualifier_key = ALPHA (ALPHA / DIGIT / - / . / _)* -- empty key is INVALID

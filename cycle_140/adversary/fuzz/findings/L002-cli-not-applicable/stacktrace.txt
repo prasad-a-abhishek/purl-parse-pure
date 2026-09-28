@@ -1,0 +1,15 @@
+=== L002 reproduction (CLI argv type-safety) ===
+returncode: 0
+stdout: {
+  "type": "npm",
+  "namespace": null,
+  "name": "foo",
+  "version": null,
+  "qualifiers": {},
+  "subpath": null
+}
+
+stderr first 200: 
+
+CLI argv is always list[str] at the OS level -- finding does not apply to CLI surface.
+V002 covers the library-surface fix; L002 is withdrawn.
