@@ -1,0 +1,11 @@
+{
+  "surface": "cli_decode",
+  "status": "ready",
+  "harness_path": "cycle_140/adversary/fuzz/harness_cli_decode.py",
+  "seed_count": 7,
+  "asan_enabled": true,
+  "ubsan_enabled": true,
+  "per_input_timeout_seconds": 5,
+  "atheris_version": "3.0.0",
+  "notes": "Placeholder. Populated by T3 CORPUS_RUN."
+}

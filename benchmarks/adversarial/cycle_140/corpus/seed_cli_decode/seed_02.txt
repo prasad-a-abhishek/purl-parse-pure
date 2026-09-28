@@ -1,0 +1,1 @@
+pkg:pypi/django@1.11#sub/path
