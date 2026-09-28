@@ -1,5 +1,8 @@
 # QA Report — cycle_140 / purl-parse-pure
 
+tests_passing: true
+test_count: 216
+
 ## 1. Executive Summary
 
 QA verification of `purl-parse-pure` (cycle 140) on `master` HEAD `3821c5a` passed
