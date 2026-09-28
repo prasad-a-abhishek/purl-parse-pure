@@ -4,14 +4,14 @@
 
 `pkg:npm/lodash@4.17.21` → `{type: "npm", name: "lodash", version: "4.17.21"}`
 
-[![PyPI version](https://img.shields.io/pypi/v/purl-parse-pure.svg)](https://pypi.org/project/purl-parse-pure/)
-[![Python](https://img.shields.io/pypi/pyversions/purl-parse-pure.svg)](https://pypi.org/project/purl-parse-pure/)
+[![Python](https://img.shields.io/pypi/pyversions/purl-parse-pure.svg)](https://github.com/prasad-a-abhishek/purl-parse-pure)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://img.shields.io/badge/tests-216%20passing-brightgreen.svg)](https://github.com/prasad-a-abhishek/purl-parse-pure)
 
 ## Quick Start
 
 ```bash
-pip install purl-parse-pure
+pip install git+https://github.com/prasad-a-abhishek/purl-parse-pure.git
 ```
 
 ```python
@@ -74,12 +74,6 @@ Existing purl libraries (`pypurl`, `python-purl`, `packageurl-python`) require t
 - **216 tests** — 100% pytest pass, full AC coverage (174 original + 42 API-safety regression tests)
 
 ## Install
-
-```bash
-pip install purl-parse-pure
-```
-
-For GitHub install (pre-PyPI):
 
 ```bash
 pip install git+https://github.com/prasad-a-abhishek/purl-parse-pure.git
