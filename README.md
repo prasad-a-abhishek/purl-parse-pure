@@ -60,7 +60,7 @@ Existing purl libraries (`pypurl`, `python-purl`, `packageurl-python`) require t
 |---------|-----------------|-------------|-------------------|
 | Dependencies | **0** | 3+ | 2+ |
 | Stdlib only | **Yes** | No | No |
-| LOC | **~340** | 2000+ | 1000+ |
+| LOC | **~470** | 2000+ | 1000+ |
 | Round-trip | **Yes** | Yes | Yes |
 
 ## Key Features
@@ -71,7 +71,7 @@ Existing purl libraries (`pypurl`, `python-purl`, `packageurl-python`) require t
 - **Round-trip** — `to_string()` produces canonical form that re-parses identically
 - **Equality & hash** — `ParseResult` usable in `set`/`dict`
 - **CLI** — `parse`, `decode`, `validate` subcommands
-- **174 tests** — 100% pytest pass, full AC coverage
+- **216 tests** — 100% pytest pass, full AC coverage (174 original + 42 API-safety regression tests)
 
 ## Install
 
@@ -84,6 +84,26 @@ For GitHub install (pre-PyPI):
 ```bash
 pip install git+https://github.com/prasad-a-abhishek/purl-parse-pure.git
 ```
+
+## Limitations
+
+The following known limitations are documented per the cycle_140 adversary audit
+(severity: Low/Medium). Remediation is deferred to future cycles unless exploitable
+evidence emerges.
+
+- **Percent-encoded control characters in name/version/namespace are accepted
+  (F-V001, severity: Medium).** Inputs like `pkg:npm/foo%00`, `pkg:npm/foo%0A`,
+  `pkg:npm/foo%0D`, `pkg:npm/foo%09` decode NUL/LF/CR/TAB into the parsed fields
+  rather than being rejected. The raw-input control-character gate checks the
+  pre-decode string, but percent-encoded equivalents bypass it. Fix requires an
+  unquote-then-gate refactor or a pre-scan regex (>10 LOC, risk of round-trip
+  regressions). Tracked at `cycle_140/adversary/fuzz/findings/V001-pct-ctrl-chars/`.
+- **`PurlError` is the recommended catch class.** `PurlError` subclasses
+  `ValueError` so legacy `except ValueError:` blocks keep working, but new code
+  should catch `PurlError` directly to distinguish purl-parsing failures.
+- **Non-string inputs to `parse()` raise `PurlError`.** `parse(b'pkg:npm/foo')`,
+  `parse(123)`, `parse(None)` etc. raise `PurlError` (not `TypeError`) per
+  Invariant 21 (total public API exception safety).
 
 ## License
 
