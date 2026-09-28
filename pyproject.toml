@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "purl-parse-pure"
-version = "0.0.0"
+version = "0.1.0"
 description = "Zero-dependency ECMA-424 / SPDX Package URL (purl) parser"
 requires-python = ">=3.8"
 dependencies = []
